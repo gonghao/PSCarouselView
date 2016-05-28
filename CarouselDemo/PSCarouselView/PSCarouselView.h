@@ -9,10 +9,21 @@
 
 @class PSCarouselView;
 @protocol PSCarouselDelegate <NSObject>
-@optional
 
-// @warning  SDWebImage库是必备的。使用本控件请确保导入了SDWebImage
-// @warning  SDWebImage is required. Make sure that you had import SDWebImage when use this widget;
+/**
+ *  告诉代理，用图片URL设置imageView的图片
+ *
+ *  @param carousel   carousel
+ *  @param imageView  需要设置图片的imageView
+ *  @param imageURL   需要下载图片的URL
+ *  @param page       imageURL的index
+ */
+- (void)carousel:(nonnull PSCarouselView *)carousel
+    setImageView:(nonnull UIImageView *)imageView
+    withImageURL:(nonnull NSURL *)imageURL
+          atPage:(NSUInteger)page;
+
+@optional
 
 /**
  *  告诉代理滚动到哪一页了
@@ -29,15 +40,6 @@
  *  @param page imageURL的index
  */
 - (void)carousel:(nonnull PSCarouselView *)carousel didTouchPage:(NSUInteger)page;
-
-/**
- *  告诉代理，下载好了哪一张图片
- *
- *  @param carousel carousel
- *  @param image    从imageURL中的URL里下载的图片
- *  @param page    imageURL的index
- */
-- (void)carousel:(nonnull PSCarouselView *)carousel didDownloadImages:(nonnull UIImage *)image atPage:(NSUInteger)page;
 @end
 
 

@@ -13,7 +13,6 @@
 
 #import "PSCarouselView.h"
 #import "PSCarouselCollectionCell.h"
-#import "UIImageView+WebCache.h"
 
 @interface PSCarouselView()<UICollectionViewDelegate,
                             UICollectionViewDataSource,
@@ -182,13 +181,12 @@
         [cell.adImageView setImage:self.placeholder];
         return cell;
     }
-    
-    [cell.adImageView sd_setImageWithURL:[self.imageURLs objectAtIndex:indexPath.item] placeholderImage:self.placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if ([self.pageDelegate respondsToSelector:@selector(carousel:didDownloadImages:atPage:)])
-        {
-            [self.pageDelegate carousel:self didDownloadImages:image atPage:[self pageWithIndexPath:indexPath]];
-        }
-    }];
+
+    [self.pageDelegate carousel:self
+                   setImageView:cell.adImageView
+                   withImageURL:[self.imageURLs objectAtIndex:indexPath.item]
+                         atPage:[self pageWithIndexPath:indexPath]];
+
     return cell;
 }
 
